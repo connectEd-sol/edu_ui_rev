@@ -14,7 +14,8 @@ import {
   ChevronRight,
   Calendar,
   TrendingUp,
-  MapPin
+  MapPin,
+  X
 } from 'lucide-react';
 
 interface MenuItem {
@@ -23,7 +24,11 @@ interface MenuItem {
   path: string;
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const { user, logout } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
@@ -84,7 +89,7 @@ const Sidebar: React.FC = () => {
   const menuItems = getMenuItems();
 
   return (
-    <div className={`bg-white shadow-lg transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
+    <div className={`bg-white shadow-lg transition-all duration-300 h-full ${isCollapsed ? 'w-16' : 'w-64'}`}>
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed && (
           <div className="flex items-center space-x-2">
@@ -92,17 +97,28 @@ const Sidebar: React.FC = () => {
             <span className="text-xl font-bold text-gray-800">EduManage</span>
           </div>
         )}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
-          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-5 w-5 text-gray-600" />
-          ) : (
-            <ChevronLeft className="h-5 w-5 text-gray-600" />
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-1 rounded-lg hover:bg-gray-100 transition-colors hidden lg:block"
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-5 w-5 text-gray-600" />
+            ) : (
+              <ChevronLeft className="h-5 w-5 text-gray-600" />
+            )}
+          </button>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="p-1 rounded-lg hover:bg-gray-100 transition-colors lg:hidden"
+              aria-label="Close sidebar"
+            >
+              <X className="h-5 w-5 text-gray-600" />
+            </button>
           )}
-        </button>
+        </div>
       </div>
 
       {!isCollapsed && user && (
