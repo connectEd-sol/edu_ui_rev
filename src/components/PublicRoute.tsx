@@ -3,7 +3,6 @@ import { useAuth } from '../context/AuthContext'
 
 function PublicRoute() {
     const { user, isLoading } = useAuth();
-    
     if (isLoading) {
         return (
             <div className="flex items-center justify-center w-screen h-screen bg-gray-100">
@@ -13,7 +12,7 @@ function PublicRoute() {
     }
 
     if (user?.id) {
-        return <Navigate to="/" replace />
+        return <Navigate to="/dashboard" replace />
     }
 
     return <Outlet />

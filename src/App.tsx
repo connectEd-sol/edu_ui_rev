@@ -4,9 +4,13 @@ import { AuthProvider } from "./context/AuthContext";
 
 import LoginForm from "./components/auth/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
+import TeacherDashboard from "./components/teacher/TeacherDashboard";
 import AttendanceManager from "./components/attendance/AttendanceManager";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import MentorRoute from "./components/MentorRoute";
+import AdminRoute from "./components/AdminRoute";
+import BaseUrlComponent from "./components/BaseRoute";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -16,11 +20,21 @@ const AppRoutes: React.FC = () => {
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginForm />} />
       </Route>
-
+      <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
-      <Route element={<PrivateRoute />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/attendance" element={<AttendanceManager />} />
+      <Route path="/" element={<PrivateRoute />}>
+        {/* Admin routes */}
+        <Route path="/" element={<AdminRoute />}>
+          <Route path="/admin_dashboard" element={<Dashboard />} />
+        </Route>
+
+        {/* Teacher routes */}
+        <Route path="/" element={<MentorRoute />}>
+          <Route path="/teacher_dashboard" element={<TeacherDashboard />} />
+        </Route>
+
+        {/* Common routes */}
+        <Route path="attendance" element={<AttendanceManager />} />
       </Route>
 
       {/* Catch all route */}

@@ -1,9 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const PrivateRoute = (): React.JSX.Element => {
+const MentorRoute = (): React.JSX.Element => {
   const { user, isLoading } = useAuth();
-  console.log(user);
   if (isLoading) {
     return (
       <div
@@ -21,8 +20,8 @@ const PrivateRoute = (): React.JSX.Element => {
       </div>
     );
   } else {
-      return user?.id ? <Outlet /> : <Navigate to="/login" replace />;
+    return user?.role === "teacher" ? <Outlet /> : <Navigate to="/login" replace />;
   }
 };
 
-export default PrivateRoute;
+export default MentorRoute;
