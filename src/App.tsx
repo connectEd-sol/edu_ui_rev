@@ -12,6 +12,8 @@ import PublicRoute from "./components/PublicRoute";
 import MentorRoute from "./components/MentorRoute";
 import AdminRoute from "./components/AdminRoute";
 import BaseUrlComponent from "./components/BaseRoute";
+import PostTestMarks from "./components/teacher/PostTestMarks";
+import ViewTestMarks from "./components/teacher/ViewTestMarks";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -24,7 +26,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
-      <Route path="/homework/:classId" element={<HomeworkTracker />} />
+        <Route path="/homework/:classId" element={<HomeworkTracker />} />
+        <Route path="/test_marks" element={<ViewTestMarks />} />
+        <Route path="/post_marks" element={<PostTestMarks />} />
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />
