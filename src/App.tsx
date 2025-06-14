@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { FeedbackProvider } from "./context/FeedbackContext";
 
 import LoginForm from "./components/auth/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -19,6 +18,7 @@ import CreateNotice from "./components/notices/CreateNotice";
 import NoticeBoard from "./components/notices/NoticeBoard";
 import SubmitFeedback from "./components/feedback/SubmitFeedback";
 import ViewFeedback from "./components/feedback/ViewFeedback";
+import SchoolCalendar from "./components/calendar/SchoolCalendar";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -37,7 +37,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/notices" element={<NoticeBoard />} />
         <Route path="/notices/new" element={<CreateNotice />} />
         <Route path="/feedback/submit" element={<SubmitFeedback />} />
-        
+        <Route path="/calendar" element={<SchoolCalendar />} />
+
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />
@@ -63,9 +64,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <FeedbackProvider>
-          <AppRoutes />
-        </FeedbackProvider>
+        <AppRoutes />
       </AuthProvider>
     </BrowserRouter>
   );
