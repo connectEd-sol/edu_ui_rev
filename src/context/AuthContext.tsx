@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
+import { mockUsers } from '../constants/Constants';
 
 interface AuthContextType {
   user: User | null;
@@ -22,43 +23,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Mock users for demonstration
-const mockUsers: User[] = [
-  {
-    id: '1',
-    name: 'Dr. Sarah Johnson',
-    email: 'admin@school.edu',
-    role: 'admin',
-    avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400'
-  },
-  {
-    id: '2',
-    name: 'Mr. David Wilson',
-    email: 'teacher@school.edu',
-    role: 'teacher',
-    class: '10',
-    section: 'A',
-    avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400'
-  },
-  {
-    id: '3',
-    name: 'Mrs. Emily Brown',
-    email: 'parent@school.edu',
-    role: 'parent',
-    phone: '+1-555-0123',
-    avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400'
-  },
-  {
-    id: '4',
-    name: 'Alex Johnson',
-    email: 'student@school.edu',
-    role: 'student',
-    class: '10',
-    section: 'A',
-    parentId: '3',
-    avatar: 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=400'
-  }
-];
+
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -79,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Mock authentication logic
     const foundUser = mockUsers.find(u => u.email === email && u.role === role);
     
-    if (foundUser && password === 'password123') {
+    if (foundUser && password === foundUser.password) {
       setUser(foundUser);
       localStorage.setItem('user', JSON.stringify(foundUser));
       setIsLoading(false);

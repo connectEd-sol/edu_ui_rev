@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GraduationCap, User, Lock, Mail } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { mockUsers } from '../../constants/Constants';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,15 +25,9 @@ const LoginForm: React.FC = () => {
     setIsLoading(false);
   };
 
-  const demoCredentials = [
-    { role: 'admin', email: 'admin@school.edu', name: 'Dr. Sarah Johnson' },
-    { role: 'teacher', email: 'teacher@school.edu', name: 'Mr. David Wilson' },
-    { role: 'parent', email: 'parent@school.edu', name: 'Mrs. Emily Brown' },
-    { role: 'student', email: 'student@school.edu', name: 'Alex Johnson' }
-  ];
 
   const fillDemoCredentials = (demoRole: string, demoEmail: string) => {
-    setRole(demoRole as any);
+    setRole(demoRole as 'admin' | 'teacher' | 'parent' | 'student');
     setEmail(demoEmail);
     setPassword('password123');
   };
@@ -66,7 +61,7 @@ const LoginForm: React.FC = () => {
                   <select
                     id="role"
                     value={role}
-                    onChange={(e) => setRole(e.target.value as any)}
+                    onChange={(e) => setRole(e.target.value as 'admin' | 'teacher' | 'parent' | 'student')}
                     className="pl-10 w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="admin">Administrator</option>
@@ -135,7 +130,7 @@ const LoginForm: React.FC = () => {
             <p className="text-gray-600 mb-6">Click on any role below to auto-fill the login form:</p>
             
             <div className="space-y-4">
-              {demoCredentials.map((demo) => (
+              {mockUsers.map((demo) => (
                 <div
                   key={demo.role}
                   onClick={() => fillDemoCredentials(demo.role, demo.email)}

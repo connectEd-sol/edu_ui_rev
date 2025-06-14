@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Calendar, Users, CheckCircle, XCircle, Clock, Search, Download, Filter, Check, X, Save, AlertCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Search, Download, Check, X, Save, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import Layout from '../common/Layout';
 
 interface Student {
   id: string;
@@ -206,6 +207,7 @@ const AttendanceManager: React.FC = () => {
   };
 
   return (
+    <Layout>
     <div className="space-y-6">
       {/* Confirmation Message */}
       {showConfirmation && (
@@ -361,7 +363,7 @@ const AttendanceManager: React.FC = () => {
                     ['present', 'absent', 'late', 'excused'].map((status) => (
                       <button
                         key={status}
-                        onClick={() => updateAttendance(student.id, status as any)}
+                        onClick={() => updateAttendance(student.id, status as 'present' | 'absent' | 'late' | 'excused')}
                         className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors ${
                           student.status === status
                             ? getStatusColor(status)
@@ -443,6 +445,7 @@ const AttendanceManager: React.FC = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

@@ -22,41 +22,41 @@ const Sidebar: React.FC = () => {
 
   const getMenuItems = () => {
     const commonItems = [
-      { icon: LayoutDashboard, label: 'Dashboard', href: '#dashboard', active: true },
+      { icon: LayoutDashboard, label: 'Dashboard', href: '#dashboard', active: false },
     ];
 
     switch (user?.role) {
       case 'admin':
         return [
           ...commonItems,
-          { icon: Users, label: 'User Management', href: '#users' },
-          { icon: ClipboardList, label: 'Attendance', href: '#attendance' },
-          { icon: BarChart3, label: 'Performance', href: '#performance' },
-          { icon: Bus, label: 'Transportation', href: '#transportation' },
-          { icon: Settings, label: 'Settings', href: '#settings' },
+          { icon: Users, label: 'User Management', href: '#users', active: false },
+          { icon: ClipboardList, label: 'Attendance', href: '#attendance', active: false },
+          { icon: BarChart3, label: 'Performance', href: '#performance', active: false },
+          { icon: Bus, label: 'Transportation', href: '#transportation', active: false },
+          { icon: Settings, label: 'Settings', href: '#settings', active: false },
         ];
       case 'teacher':
         return [
           ...commonItems,
-          { icon: ClipboardList, label: 'Mark Attendance', href: '#attendance' },
-          { icon: GraduationCap, label: 'My Classes', href: '#classes' },
-          { icon: BarChart3, label: 'Student Performance', href: '#performance' },
-          { icon: Calendar, label: 'Schedule', href: '#schedule' },
+          { icon: ClipboardList, label: 'Mark Attendance', href: '#attendance', active: false },
+          { icon: GraduationCap, label: 'My Classes', href: '#classes', active: false },
+          { icon: BarChart3, label: 'Student Performance', href: '#performance', active: false },
+          { icon: Calendar, label: 'Schedule', href: '#schedule', active: false },
         ];
       case 'parent':
         return [
           ...commonItems,
-          { icon: Calendar, label: 'Attendance', href: '#attendance' },
-          { icon: TrendingUp, label: 'Performance', href: '#performance' },
-          { icon: MapPin, label: 'Bus Tracking', href: '#bus-tracking' },
-          { icon: Settings, label: 'Settings', href: '#settings' },
+          { icon: Calendar, label: 'Attendance', href: '#attendance', active: false },
+          { icon: TrendingUp, label: 'Performance', href: '#performance', active: false },
+          { icon: MapPin, label: 'Bus Tracking', href: '#bus-tracking', active: false },
+          { icon: Settings, label: 'Settings', href: '#settings', active: false },
         ];
       case 'student':
         return [
           ...commonItems,
-          { icon: Calendar, label: 'My Attendance', href: '#attendance' },
-          { icon: BarChart3, label: 'My Performance', href: '#performance' },
-          { icon: MapPin, label: 'Bus Tracking', href: '#bus-tracking' },
+          { icon: Calendar, label: 'My Attendance', href: '#attendance', active: false },
+          { icon: BarChart3, label: 'My Performance', href: '#performance', active: false },
+          { icon: MapPin, label: 'Bus Tracking', href: '#bus-tracking', active: false },
         ];
       default:
         return commonItems;

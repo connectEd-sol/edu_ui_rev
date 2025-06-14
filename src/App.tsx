@@ -1,63 +1,41 @@
-import React from 'react';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import Layout from './components/common/Layout';
-import LoginForm from './components/auth/LoginForm';
-import Dashboard from './components/dashboard/Dashboard';
-import AttendanceManager from './components/attendance/AttendanceManager';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
-// Mock routing component
-const AppContent: React.FC = () => {
-  const { user, isLoading } = useAuth();
-  const [currentPage, setCurrentPage] = React.useState('dashboard');
+import LoginForm from "./components/auth/LoginForm";
+import Dashboard from "./components/dashboard/Dashboard";
+import AttendanceManager from "./components/attendance/AttendanceManager";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
-  // Move useEffect to the top, before any conditional returns
-  React.useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.substring(1);
-      if (hash) {
-        setCurrentPage(hash);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // Check initial hash
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <LoginForm />;
-  }
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'attendance':
-        return <AttendanceManager />;
-      default:
-        return <Dashboard />;
-    }
-  };
-
+// App Routes component
+const AppRoutes: React.FC = () => {
   return (
-    <Layout>
-      {renderCurrentPage()}
-    </Layout>
+    <Routes>
+      {/* Public routes */}
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<LoginForm />} />
+      </Route>
+
+      {/* Private routes */}
+      <Route element={<PrivateRoute />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/attendance" element={<AttendanceManager />} />
+      </Route>
+
+      {/* Catch all route */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

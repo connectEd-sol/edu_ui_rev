@@ -8,6 +8,7 @@ export interface User {
   class?: string;
   section?: string;
   parentId?: string;
+  password?: string;
 }
 
 export interface Student {
