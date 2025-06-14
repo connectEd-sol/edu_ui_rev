@@ -7,7 +7,7 @@ interface Notification {
   message: string;
   type: 'warning' | 'info' | 'success';
   time: string;
-  source?: 'notice_board' | 'other';
+  source?: string;
 }
 
 interface NotificationsProps {

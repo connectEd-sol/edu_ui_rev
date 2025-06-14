@@ -9,7 +9,7 @@ interface HeaderProps {
   title?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ onMenuClick, title = 'Admin Dashboard' }) => {
+const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const { user } = useAuth();
 
   const notifications = [
@@ -49,9 +49,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, title = 'Admin Dashboard' 
         >
           <Menu className="h-6 w-6 text-gray-600" />
         </button>
-
-        {/* Center: Page Title */}
-        <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
 
         {/* Right: Notifications and Profile */}
         <div className="flex items-center space-x-3">

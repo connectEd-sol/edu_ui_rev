@@ -108,13 +108,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
           { type: 'link', icon: BookOpen, label: 'Homework Management', path: '/homework/:classId' },
           { type: 'link', icon: FileText, label: 'Test & Exam Management', path: '/test_marks' },
           { type: 'link', icon: Clock, label: 'Timetable Management', path: '/timetable' },
-          { type: 'link', icon: MessageSquare, label: 'Feedback Management', path: '/feedback' },
+          { type: 'link', icon: MessageSquare, label: 'Submit Feedback', path: '/feedback/submit' },
           { type: 'link', icon: Trophy, label: 'Hall of Fame', path: '/hall-of-fame' },
           { type: 'link', icon: Library, label: 'Resource Hub', path: '/resources' },
           { type: 'divider' },
           { type: 'link', icon: Settings, label: 'Settings', path: '/settings' },
           { type: 'link', icon: HelpCircle, label: 'Help & Support', path: '/help' }
-
         ];
       case 'parent':
         return [
