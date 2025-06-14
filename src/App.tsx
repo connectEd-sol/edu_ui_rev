@@ -14,6 +14,8 @@ import AdminRoute from "./components/AdminRoute";
 import BaseUrlComponent from "./components/BaseRoute";
 import PostTestMarks from "./components/teacher/PostTestMarks";
 import ViewTestMarks from "./components/teacher/ViewTestMarks";
+import CreateNotice from "./components/notices/CreateNotice";
+import NoticeBoard from "./components/notices/NoticeBoard";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -29,6 +31,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/homework/:classId" element={<HomeworkTracker />} />
         <Route path="/test_marks" element={<ViewTestMarks />} />
         <Route path="/post_marks" element={<PostTestMarks />} />
+        <Route path="/notices" element={<NoticeBoard />} />
+        <Route path="/notices/new" element={<CreateNotice />} />
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />

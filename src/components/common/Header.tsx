@@ -18,21 +18,24 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, title = 'Admin Dashboard' 
       title: 'Attendance Alert',
       message: 'Alex Johnson was marked absent today',
       type: 'warning' as const,
-      time: '5 minutes ago'
+      time: '5 minutes ago',
+
     },
     {
       id: '2',
       title: 'Bus Update',
       message: 'Route A is running 10 minutes late',
       type: 'info' as const,
-      time: '15 minutes ago'
+      time: '15 minutes ago',
+      source: 'GPS'
     },
     {
       id: '3',
       title: 'Grade Updated',
       message: 'Math quiz grades have been uploaded',
       type: 'success' as const,
-      time: '1 hour ago'
+      time: '1 hour ago',
+      source: 'Notice Board'
     }
   ];
 

@@ -7,6 +7,7 @@ interface Notification {
   message: string;
   type: 'warning' | 'info' | 'success';
   time: string;
+  source?: 'notice_board' | 'other';
 }
 
 interface NotificationsProps {
@@ -35,9 +36,14 @@ const Notifications: React.FC<NotificationsProps> = ({ notifications }) => {
           </div>
           <div className="max-h-96 overflow-y-auto">
             {notifications.map((notification) => (
-              <div key={notification.id} className="p-4 border-b border-gray-100 hover:bg-gray-50">
+              <div key={notification.id} className="p-4 border-b border-gray-100 hover:bg-gray-50 relative">
+                {notification.source && (
+                  <span className="absolute top-2 right-2 px-2 py-0.5 bg-blue-50 text-blue-700 text-xs rounded-full font-medium">
+                    {notification.source}
+                  </span>
+                )}
                 <div className="flex justify-between items-start">
-                  <div className="flex-1">
+                  <div className="flex-1 pr-8">
                     <h4 className="text-sm font-medium text-gray-900">{notification.title}</h4>
                     <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
                   </div>

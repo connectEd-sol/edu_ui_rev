@@ -103,6 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
           { type: 'link', icon: ClipboardList, label: 'Mark Attendance', path: '/attendance' },
           { type: 'link', icon: GraduationCap, label: 'My Classes', path: '/classes' },
           { type: 'link', icon: BarChart3, label: 'Student Performance', path: '/performance' },
+          { type: 'link', icon: Bell, label: 'Notice Board', path: '/notices' },
           { type: 'link', icon: Calendar, label: 'Schedule', path: '/schedule' },
           { type: 'link', icon: BookOpen, label: 'Homework Management', path: '/homework/:classId' },
           { type: 'link', icon: FileText, label: 'Test & Exam Management', path: '/test_marks' },
