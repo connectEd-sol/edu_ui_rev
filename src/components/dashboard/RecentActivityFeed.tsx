@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Calendar, TrendingUp, Users, Bell, MapPin, Bus } from 'lucide-react';
+import { AlertCircle, BookOpen, Calendar, TrendingUp, Users, Bell, MapPin, Bus } from 'lucide-react';
 
 interface Activity {
   icon: React.ElementType;
@@ -8,7 +8,7 @@ interface Activity {
   time: string;
 }
 
-const RecentActivities: React.FC = () => {
+const RecentActivityFeed: React.FC = () => {
   const { user } = useAuth();
 
   const getRecentActivities = (): Activity[] => {
@@ -42,35 +42,36 @@ const RecentActivities: React.FC = () => {
           { icon: Bell, text: 'Math homework due tomorrow', time: '3 days ago' }
         ];
       default:
-        return [];
+        return [
+          { icon: AlertCircle, text: 'New Notice: PTM on 2025-07-10', time: '2 hours ago' },
+          { icon: BookOpen, text: 'Teacher John updated Class 8 Homework', time: '4 hours ago' }
+        ];
     }
   };
 
-  const recentActivities = getRecentActivities();
+  const activities = getRecentActivities();
 
   return (
-    <div>
-      <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Recent Activities</h2>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-        <div className="grid grid-cols-2 gap-3 sm:space-y-4">
-          {recentActivities.map((activity, index) => {
-            const Icon = activity.icon;
-            return (
-              <div key={index} className="flex items-start space-x-2 sm:space-x-3">
-                <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                  <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] sm:text-sm text-gray-900 mb-0.5 sm:mb-1 line-clamp-2">{activity.text}</p>
-                  <p className="text-[8px] sm:text-xs text-gray-500">{activity.time}</p>
-                </div>
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+      <h2 className="text-lg font-bold text-gray-900 mb-4">Recent Activity</h2>
+      <div className="grid grid-cols-2 gap-3 sm:space-y-4">
+        {activities.map((activity, index) => {
+          const Icon = activity.icon;
+          return (
+            <div key={index} className="flex items-start space-x-2 sm:space-x-3">
+              <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
               </div>
-            );
-          })}
-        </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[14px] sm:text-sm text-gray-900 mb-0.5 sm:mb-1 line-clamp-2">{activity.text}</p>
+                <p className="text-[12px] sm:text-xs text-gray-500">{activity.time}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
 
-export default RecentActivities; 
+export default RecentActivityFeed; 

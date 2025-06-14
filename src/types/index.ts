@@ -91,3 +91,21 @@ export interface Notification {
   isRead: boolean;
   createdAt: string;
 }
+
+export interface Homework {
+  id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  subject: string;
+  classId: string;
+  attachments?: string[];
+  createdAt: string;
+  submissions?: {
+    studentId: string;
+    submittedAt: string;
+    status: 'submitted' | 'graded' | 'late';
+    grade?: number;
+    feedback?: string;
+  }[];
+}
