@@ -29,7 +29,7 @@ const Notifications: React.FC<NotificationsProps> = ({ notifications }) => {
       </button>
 
       {showNotifications && (
-        <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+        <div className="absolute left-[-22vw] -translate-x-1/2 mt-2 w-[calc(100vw-2rem)] sm:w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
           <div className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
           </div>
