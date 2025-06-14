@@ -1,23 +1,28 @@
 import React from 'react';
 import Layout from '../common/Layout';
-import DashboardStats from './DashboardStats';
 import WelcomeSection from './WelcomeSection';
-import QuickActions from './QuickActions';
-import RecentActivities from './RecentActivities';
 import SystemStatus from './SystemStatus';
+import OverviewCards from './OverviewCards';
+import QuickActionsSection from './QuickActionsSection';
+import RecentActivityFeed from './RecentActivityFeed';
+import FloatingActionButton from './FloatingActionButton';
 
 const Dashboard: React.FC = () => {
+  const handleAddNew = () => {
+    // Handle add new item action
+    console.log('Add new item clicked');
+  };
+
   return (
-    <Layout>
-      <div className="space-y-8">
+    <Layout title="Admin Dashboard">
+      <div className="space-y-6">
         <WelcomeSection />
-        <DashboardStats />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <QuickActions />
-          <RecentActivities />
-        </div>
+        <OverviewCards />
+        <QuickActionsSection />
+        <RecentActivityFeed />
         <SystemStatus />
       </div>
+      <FloatingActionButton onClick={handleAddNew} />
     </Layout>
   );
 };

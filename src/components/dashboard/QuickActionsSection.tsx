@@ -7,17 +7,17 @@ interface QuickAction {
   color: string;
 }
 
-const QuickActions: React.FC = () => {
+const QuickActionsSection: React.FC = () => {
   const { user } = useAuth();
 
   const getQuickActions = (): QuickAction[] => {
     switch (user?.role) {
       case 'admin':
         return [
-          { title: 'Generate Reports', description: 'Create attendance and performance reports', color: 'bg-blue-500' },
-          { title: 'Manage Users', description: 'Add or modify user accounts', color: 'bg-green-500' },
-          { title: 'System Settings', description: 'Configure system parameters', color: 'bg-purple-500' },
-          { title: 'Bus Management', description: 'Monitor transportation system', color: 'bg-orange-500' }
+          { title: 'Post New Notice', description: 'Create and publish announcements', color: 'bg-blue-500' },
+          { title: 'Add New User', description: 'Create new user accounts', color: 'bg-green-500' },
+          { title: 'Manage Calendar', description: 'Schedule and manage events', color: 'bg-purple-500' },
+          { title: 'View Reports', description: 'Access system analytics', color: 'bg-orange-500' }
         ];
       case 'teacher':
         return [
@@ -48,19 +48,19 @@ const QuickActions: React.FC = () => {
   const quickActions = getQuickActions();
 
   return (
-    <div className="lg:col-span-2">
-      <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Quick Actions</h2>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+      <h2 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h2>
+      <div className="grid grid-cols-2 gap-3">
         {quickActions.map((action, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl p-3 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group"
+            className="bg-white rounded-xl p-3 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group"
           >
-            <div className={`w-8 h-8 sm:w-12 sm:h-12 ${action.color} rounded-lg flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform`}>
-              <div className="w-4 h-4 sm:w-6 sm:h-6 bg-white rounded"></div>
+            <div className={`w-8 h-8 ${action.color} rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
+              <div className="w-4 h-4 bg-white rounded"></div>
             </div>
-            <h3 className="font-semibold text-gray-900 text-xs sm:text-base mb-0.5 sm:mb-2">{action.title}</h3>
-            <p className="text-gray-600 text-[10px] sm:text-sm">{action.description}</p>
+            <h3 className="font-semibold text-gray-900 text-sm mb-1">{action.title}</h3>
+            <p className="text-gray-600 text-xs">{action.description}</p>
           </div>
         ))}
       </div>
@@ -68,4 +68,4 @@ const QuickActions: React.FC = () => {
   );
 };
 
-export default QuickActions; 
+export default QuickActionsSection; 

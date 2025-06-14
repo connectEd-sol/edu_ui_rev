@@ -1,11 +1,15 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import SearchBar from './SearchBar';
 import Notifications from './Notifications';
 import UserProfile from './UserProfile';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onMenuClick?: () => void;
+  title?: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ onMenuClick, title = 'Admin Dashboard' }) => {
   const { user } = useAuth();
 
   const notifications = [
@@ -33,19 +37,21 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-4 sm:px-6 py-4">
+    <header className="bg-white shadow-sm border-b border-gray-200 px-4 py-3">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <button className="md:hidden p-2 rounded-lg hover:bg-gray-100">
-            <Menu className="h-5 w-5 text-gray-600" />
-          </button>
-          
-          <div className="hidden md:block w-96">
-            <SearchBar />
-          </div>
-        </div>
+        {/* Left: Hamburger Menu */}
+        <button 
+          onClick={onMenuClick}
+          className="p-2 rounded-lg hover:bg-gray-100"
+        >
+          <Menu className="h-6 w-6 text-gray-600" />
+        </button>
 
-        <div className="flex items-center space-x-4">
+        {/* Center: Page Title */}
+        <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
+
+        {/* Right: Notifications and Profile */}
+        <div className="flex items-center space-x-3">
           <Notifications notifications={notifications} />
           <UserProfile user={user} />
         </div>
