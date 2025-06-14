@@ -49,18 +49,18 @@ const QuickActions: React.FC = () => {
 
   return (
     <div className="lg:col-span-2">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Quick Actions</h2>
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         {quickActions.map((action, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group"
+            className="bg-white rounded-xl p-3 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group"
           >
-            <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-              <div className="w-6 h-6 bg-white rounded"></div>
+            <div className={`w-8 h-8 sm:w-12 sm:h-12 ${action.color} rounded-lg flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform`}>
+              <div className="w-4 h-4 sm:w-6 sm:h-6 bg-white rounded"></div>
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{action.title}</h3>
-            <p className="text-gray-600 text-sm">{action.description}</p>
+            <h3 className="font-semibold text-gray-900 text-xs sm:text-base mb-0.5 sm:mb-2">{action.title}</h3>
+            <p className="text-gray-600 text-[10px] sm:text-sm">{action.description}</p>
           </div>
         ))}
       </div>

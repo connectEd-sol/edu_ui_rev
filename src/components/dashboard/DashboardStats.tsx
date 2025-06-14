@@ -43,16 +43,16 @@ const DashboardStats: React.FC = () => {
   const stats = getStatsForRole();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-2 bg-blue-50 rounded-lg">
-                <Icon className="h-6 w-6 text-blue-600" />
+          <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-200 p-3 sm:p-6 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <div className="p-1.5 sm:p-2 bg-blue-50 rounded-lg">
+                <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
               </div>
-              <div className={`text-sm font-medium ${
+              <div className={`text-[10px] sm:text-sm font-medium ${
                 stat.changeType === 'positive' ? 'text-green-600' :
                 stat.changeType === 'negative' ? 'text-red-600' :
                 'text-gray-600'
@@ -61,8 +61,8 @@ const DashboardStats: React.FC = () => {
               </div>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</p>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1">{stat.value}</p>
+              <p className="text-[10px] sm:text-sm text-gray-600">{stat.label}</p>
             </div>
           </div>
         );
