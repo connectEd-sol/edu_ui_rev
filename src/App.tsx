@@ -6,6 +6,7 @@ import LoginForm from "./components/auth/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
 import TeacherDashboard from "./components/teacher/TeacherDashboard";
 import AttendanceManager from "./components/attendance/AttendanceManager";
+import HomeworkTracker from "./components/homework/HomeworkTracker";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import MentorRoute from "./components/MentorRoute";
@@ -23,6 +24,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
+      <Route path="/homework/:classId" element={<HomeworkTracker />} />
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />

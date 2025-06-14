@@ -84,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
             ]
           },
           { type: 'link', icon: ClipboardList, label: 'Attendance Management', path: '/attendance' },
-          { type: 'link', icon: BookOpen, label: 'Homework Management', path: '/homework' },
+          { type: 'link', icon: BookOpen, label: 'Homework Management', path: '/homework/:classId' },
           { type: 'link', icon: Calendar, label: 'Calendar Management', path: '/calendar' },
           { type: 'link', icon: Bell, label: 'Notice Board', path: '/notices' },
           { type: 'link', icon: Phone, label: 'Emergency Contacts', path: '/emergency-contacts' },
@@ -104,6 +104,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
           { type: 'link', icon: GraduationCap, label: 'My Classes', path: '/classes' },
           { type: 'link', icon: BarChart3, label: 'Student Performance', path: '/performance' },
           { type: 'link', icon: Calendar, label: 'Schedule', path: '/schedule' },
+          { type: 'link', icon: BookOpen, label: 'Homework Management', path: '/homework/:classId' },
+
         ];
       case 'parent':
         return [

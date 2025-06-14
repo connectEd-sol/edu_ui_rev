@@ -3,6 +3,7 @@ import Layout from '../common/Layout';
 import WelcomeSection from '../dashboard/WelcomeSection';
 import QuickActionsSection from '../dashboard/QuickActionsSection';
 import RecentActivityFeed from '../dashboard/RecentActivityFeed';
+import { useNavigate } from 'react-router-dom';
 
 interface ClassCard {
   id: string;
@@ -12,6 +13,8 @@ interface ClassCard {
 }
 
 const TeacherDashboard: React.FC = () => {
+  const navigate = useNavigate();
+
   // Mock data for classes
   const classes: ClassCard[] = [
     { id: '1', name: 'Class 7A', studentCount: 15, subject: 'Maths' },
@@ -47,7 +50,10 @@ const TeacherDashboard: React.FC = () => {
                   <button className="px-2 sm:px-3 py-1 text-xs bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100">
                     View Roster
                   </button>
-                  <button className="px-2 sm:px-3 py-1 text-xs bg-green-50 text-green-600 rounded-lg hover:bg-green-100">
+                  <button 
+                    onClick={() => navigate(`/homework/${classItem.id}`)}
+                    className="px-2 sm:px-3 py-1 text-xs bg-green-50 text-green-600 rounded-lg hover:bg-green-100"
+                  >
                     View Homework
                   </button>
                 </div>
