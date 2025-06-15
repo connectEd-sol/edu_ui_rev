@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import LoginForm from "./pages/auth/LoginForm";
 import Dashboard from "./pages/dashboard/Dashboard";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import ParentDashboard from "./pages/parent/ParentDashboard";
 import AttendanceManager from "./pages/attendance/AttendanceManager";
 import HomeworkTracker from "./pages/homework/HomeworkTracker";
 import PrivateRoute from "./pages/PrivateRoute";
@@ -20,6 +21,7 @@ import SubmitFeedback from "./pages/feedback/SubmitFeedback";
 import ViewFeedback from "./pages/feedback/ViewFeedback";
 import SchoolCalendar from "./pages/calendar/SchoolCalendar";
 import BadgePage from "./pages/badges/BadgePage";
+import ParentRoute from "./pages/parentRoute";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -28,7 +30,6 @@ const AppRoutes: React.FC = () => {
       {/* Public routes */}
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/badges" element={<BadgePage />} />
       </Route>
       <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
@@ -52,8 +53,15 @@ const AppRoutes: React.FC = () => {
           <Route path="/teacher_dashboard" element={<TeacherDashboard />} />
         </Route>
 
+        {/* Parent routes */}
+        <Route path="/" element={<ParentRoute />}>
+          <Route path="/parent_dashboard" element={<ParentDashboard />} />
+        </Route>
+
         {/* Common routes */}
         <Route path="attendance" element={<AttendanceManager />} />
+        <Route path="/badges" element={<BadgePage />} />
+
       </Route>
 
       {/* Catch all route */}
