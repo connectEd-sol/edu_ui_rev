@@ -88,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
           { type: 'link', icon: Calendar, label: 'Calendar Management', path: '/calendar' },
           { type: 'link', icon: Bell, label: 'Notice Board', path: '/notices' },
           { type: 'link', icon: Phone, label: 'Emergency Contacts', path: '/emergency-contacts' },
-          { type: 'link', icon: FileText, label: 'Test & Exam Management', path: '/exams' },
+          { type: 'link', icon: FileText, label: 'Test & Exam Management', path: '/test_marks' },
           { type: 'link', icon: Clock, label: 'Timetable Management', path: '/timetable' },
           { type: 'link', icon: MessageSquare, label: 'Feedback Management', path: '/feedback' },
           { type: 'link', icon: Trophy, label: 'Hall of Fame', path: '/hall-of-fame' },

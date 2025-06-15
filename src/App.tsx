@@ -2,23 +2,24 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
-import LoginForm from "./components/auth/LoginForm";
-import Dashboard from "./components/dashboard/Dashboard";
-import TeacherDashboard from "./components/teacher/TeacherDashboard";
-import AttendanceManager from "./components/attendance/AttendanceManager";
-import HomeworkTracker from "./components/homework/HomeworkTracker";
-import PrivateRoute from "./components/PrivateRoute";
-import PublicRoute from "./components/PublicRoute";
-import MentorRoute from "./components/MentorRoute";
-import AdminRoute from "./components/AdminRoute";
-import BaseUrlComponent from "./components/BaseRoute";
-import PostTestMarks from "./components/teacher/PostTestMarks";
-import ViewTestMarks from "./components/teacher/ViewTestMarks";
-import CreateNotice from "./components/notices/CreateNotice";
-import NoticeBoard from "./components/notices/NoticeBoard";
-import SubmitFeedback from "./components/feedback/SubmitFeedback";
-import ViewFeedback from "./components/feedback/ViewFeedback";
-import SchoolCalendar from "./components/calendar/SchoolCalendar";
+import LoginForm from "./pages/auth/LoginForm";
+import Dashboard from "./pages/dashboard/Dashboard";
+import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import AttendanceManager from "./pages/attendance/AttendanceManager";
+import HomeworkTracker from "./pages/homework/HomeworkTracker";
+import PrivateRoute from "./pages/PrivateRoute";
+import PublicRoute from "./pages/PublicRoute";
+import MentorRoute from "./pages/MentorRoute";
+import AdminRoute from "./pages/AdminRoute";
+import BaseUrlComponent from "./pages/BaseRoute";
+import PostTestMarks from "./pages/teacher/PostTestMarks";
+import ViewTestMarks from "./pages/teacher/ViewTestMarks";
+import CreateNotice from "./pages/notices/CreateNotice";
+import NoticeBoard from "./pages/notices/NoticeBoard";
+import SubmitFeedback from "./pages/feedback/SubmitFeedback";
+import ViewFeedback from "./pages/feedback/ViewFeedback";
+import SchoolCalendar from "./pages/calendar/SchoolCalendar";
+import BadgePage from "./pages/badges/BadgePage";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -27,6 +28,7 @@ const AppRoutes: React.FC = () => {
       {/* Public routes */}
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/badges" element={<BadgePage />} />
       </Route>
       <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
