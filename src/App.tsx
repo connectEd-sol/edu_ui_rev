@@ -20,6 +20,7 @@ import SubmitFeedback from "./pages/feedback/SubmitFeedback";
 import ViewFeedback from "./pages/feedback/ViewFeedback";
 import SchoolCalendar from "./pages/calendar/SchoolCalendar";
 import BadgePage from "./pages/badges/BadgePage";
+import RegisterForm from "./pages/auth/RegisterPage";
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -27,6 +28,7 @@ const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public routes */}
       <Route element={<PublicRoute />}>
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/badges" element={<BadgePage />} />
       </Route>
