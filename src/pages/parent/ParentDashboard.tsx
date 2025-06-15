@@ -1,23 +1,11 @@
 import React from 'react';
 import Layout from '../common/Layout';
-import WelcomeSection from '../dashboard/WelcomeSection';
-import QuickActionsSection from '../dashboard/QuickActionsSection';
-import RecentActivityFeed from '../dashboard/RecentActivityFeed';
 import { useNavigate } from 'react-router-dom';
-import { X } from 'lucide-react';
-
-interface ChildCard {
-  id: string;
-  name: string;
-  class: string;
-  profilePicture: string;
-  attendance: string;
-  homeworkDue: number;
-}
+import { X,  Calendar, BookOpen, AlertCircle, Clock, ChevronDown } from 'lucide-react';
 
 interface Alert {
   id: string;
-  type: 'absence' | 'notice' | 'homework';
+  type: 'absence' | 'notice' | 'homework' | 'exam' | 'event';
   message: string;
   date: string;
   isDismissible: boolean;
@@ -30,35 +18,151 @@ interface Event {
   type: string;
 }
 
+interface ScheduleItem {
+  id: string;
+  timeSlot: string;
+  subject: string;
+  teacher: string;
+}
+
+interface Homework {
+  id: string;
+  subject: string;
+  title: string;
+  dueDate: string;
+  status: 'pending' | 'completed' | 'overdue';
+}
+
+interface Assessment {
+  id: string;
+  subject: string;
+  title: string;
+  date: string;
+  type: 'exam' | 'quiz' | 'project';
+  weightage: string;
+}
+
+interface StudentProfile {
+  id: string;
+  name: string;
+  class: string;
+  rollNumber: string;
+  profilePicture: string;
+  grade: string;
+  section: string;
+  parentName: string;
+  admissionNumber: string;
+  bloodGroup: string;
+  emergencyContact: string;
+  classTeacher: string;
+}
+
 const ParentDashboard: React.FC = () => {
   const navigate = useNavigate();
-
-  // Mock data for children
-  const children: ChildCard[] = [
-    { 
-      id: '1', 
-      name: 'Alex Johnson', 
+  const [isStudentDropdownOpen, setIsStudentDropdownOpen] = React.useState(false);
+  
+  // Single array of all students
+  const students: StudentProfile[] = [
+    {
+      id: '1',
+      name: 'Alex Johnson',
       class: 'Class 5B',
+      rollNumber: '2024-001',
       profilePicture: 'https://ui-avatars.com/api/?name=Alex+Johnson&background=random',
-      attendance: 'Present',
-      homeworkDue: 1
+      grade: '5th',
+      section: 'B',
+      parentName: 'John Johnson',
+      admissionNumber: 'ADM2024001',
+      bloodGroup: 'O+',
+      emergencyContact: '+1 234-567-8900',
+      classTeacher: 'Mr. Smith'
     },
-    { 
-      id: '2', 
-      name: 'Sarah Johnson', 
-      class: 'Class 7A',
+    {
+      id: '2',
+      name: 'Sarah Johnson',
+      class: 'Class 3A',
+      rollNumber: '2024-002',
       profilePicture: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=random',
-      attendance: 'Present',
-      homeworkDue: 2
+      grade: '3rd',
+      section: 'A',
+      parentName: 'John Johnson',
+      admissionNumber: 'ADM2024002',
+      bloodGroup: 'A+',
+      emergencyContact: '+1 234-567-8900',
+      classTeacher: 'Mr. Smith'
     }
   ];
 
-  // Mock data for alerts
+  const [currentStudent, setCurrentStudent] = React.useState<StudentProfile>(students[0]);
+
+  // Function to handle student switch
+  const handleStudentSwitch = (studentId: string) => {
+    const selectedStudent = students.find(student => student.id === studentId);
+    if (selectedStudent) {
+      setCurrentStudent(selectedStudent);
+      setIsStudentDropdownOpen(false);
+    }
+  };
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.student-dropdown')) {
+        setIsStudentDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Mock data for today's homework - should be fetched based on current student
+  const todaysHomework: Homework[] = [
+    { 
+      id: '1', 
+      subject: 'Mathematics',
+      title: 'Complete Chapter 5 Exercises',
+      dueDate: '2024-03-18',
+      status: 'pending'
+    },
+    {
+      id: '2',
+      subject: 'Science',
+      title: 'Lab Report - Experiment 3',
+      dueDate: '2024-03-19',
+      status: 'pending'
+    }
+  ];
+
+  // Mock data for assessments - should be fetched based on current student
+  const upcomingAssessments: Assessment[] = [
+    {
+      id: '1',
+      subject: 'Science',
+      title: 'Mid-term Examination',
+      date: '2024-03-25',
+      type: 'exam',
+      weightage: '30%'
+    },
+    {
+      id: '2',
+      subject: 'Mathematics',
+      title: 'Chapter 5 Quiz',
+      date: '2024-03-22',
+      type: 'quiz',
+      weightage: '15%'
+    }
+  ];
+
+  // Mock data for alerts - should be fetched based on current student
   const alerts: Alert[] = [
     { 
       id: '1', 
       type: 'absence',
-      message: 'Child Alex was Absent on 2024-03-15',
+      message: `Child ${currentStudent.name} was Absent on 2024-03-15`,
       date: '2024-03-15',
       isDismissible: true
     },
@@ -75,76 +179,249 @@ const ParentDashboard: React.FC = () => {
       message: 'Homework Due: Maths Ch 5 by 2024-03-18',
       date: '2024-03-18',
       isDismissible: true
+    },
+    {
+      id: '4',
+      type: 'exam',
+      message: 'Science Mid-term Exam on 2024-03-25',
+      date: '2024-03-25',
+      isDismissible: false
     }
   ];
 
-  // Mock data for upcoming events
+  // Mock data for upcoming events - should be fetched based on current student
   const upcomingEvents: Event[] = [
     { id: '1', title: 'Annual Sports Day', date: '2024-03-25', type: 'event' },
     { id: '2', title: 'Science Exhibition', date: '2024-03-28', type: 'event' },
     { id: '3', title: 'Parent-Teacher Meeting', date: '2024-03-20', type: 'meeting' }
   ];
 
+  // Mock data for daily schedule - should be fetched based on current student
+  const dailySchedule: ScheduleItem[] = [
+    { id: '1', timeSlot: '9:00 AM - 9:45 AM', subject: 'Mathematics', teacher: 'Mr. Smith' },
+    { id: '2', timeSlot: '10:00 AM - 10:45 AM', subject: 'Science', teacher: 'Mrs. Johnson' },
+    { id: '3', timeSlot: '11:00 AM - 11:45 AM', subject: 'English', teacher: 'Ms. Davis' },
+  ];
+
+  // Attendance statistics - should be fetched based on current student
+  const attendanceStats = {
+    present: 18,
+    absent: 2,
+    total: 20,
+    percentage: 90
+  };
+
   return (
     <Layout title="Parent Dashboard">
-      <div className=" max-w-[100vw] overflow-x-hidden  space-y-3 sm:space-y-6">
-        <WelcomeSection />
-        <QuickActionsSection />
-        
-        {/* My Children Section */}
-        <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-200 sm:rounded-xl sm:p-4">
-          <h2 className="text-base font-bold text-gray-900 mb-2 sm:text-lg sm:mb-4">My Children</h2>
-          <div className="flex overflow-x-auto space-x-3 pb-2 sm:space-x-4 scrollbar-hide">
-            {children.map((child) => (
-              <div 
-                key={child.id} 
-                className="flex-shrink-0 w-[85vw] max-w-[280px] border border-gray-200 rounded-lg p-2 cursor-pointer hover:shadow-md transition-shadow sm:w-64 sm:p-4"
-                onClick={() => navigate(`/child/${child.id}`)}
-              >
-                <div className="flex items-center space-x-2 mb-2 sm:space-x-3 sm:mb-3">
+
+      <div className="max-w-[100vw] overflow-x-hidden space-y-4 sm:space-y-6">
+        {/* Student Profile Header */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="p-4 space-y-4">
+            {/* Top Section - Profile and Switch */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="relative">
                   <img 
-                    src={child.profilePicture} 
-                    alt={child.name}
-                    className="w-10 h-10 rounded-full sm:w-12 sm:h-12"
+                    src={currentStudent.profilePicture} 
+                    alt={currentStudent.name}
+                    className="w-14 h-14 rounded-full border-2 border-blue-500"
                   />
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-semibold text-gray-900 truncate sm:text-base">{child.name}</h3>
-                    <p className="text-xs text-gray-600 truncate sm:text-sm">{child.class}</p>
+                  <div className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900">{currentStudent.name}</h2>
+                  <p className="text-xs text-gray-600">{currentStudent.grade} Grade - Section {currentStudent.section}</p>
+                </div>
+              </div>
+              <div className="relative student-dropdown">
+                <button 
+                  onClick={() => setIsStudentDropdownOpen(!isStudentDropdownOpen)}
+                  className="flex items-center space-x-1 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm"
+                >
+                  <span>Switch</span>
+                  <ChevronDown className={`h-4 w-4 transition-transform ${isStudentDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isStudentDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    {students.filter(student => student.id !== currentStudent.id).map((student) => (
+                      <button
+                        key={student.id}
+                        onClick={() => handleStudentSwitch(student.id)}
+                        className="w-full px-3 py-2 text-left hover:bg-gray-50 flex items-center space-x-2"
+                      >
+                        <img 
+                          src={student.profilePicture} 
+                          alt={student.name}
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{student.name}</p>
+                          <p className="text-xs text-gray-600">{student.grade} Grade - Section {student.section}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Student Information Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Basic Info Card */}
+              <div className="bg-gray-50 rounded-lg p-3">
+                <h3 className="text-xs font-semibold text-gray-700 mb-2">Basic Information</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-xs text-gray-600">Roll No</span>
+                    <span className="text-xs font-medium text-gray-900">{currentStudent.rollNumber}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-xs text-gray-600">Class Teacher</span>
+                    <span className="text-xs font-medium text-gray-900">{currentStudent.classTeacher}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-xs text-gray-600">Blood Group</span>
+                    <span className="text-xs font-medium text-gray-900">{currentStudent.bloodGroup}</span>
                   </div>
                 </div>
-                <div className="space-y-1 sm:space-y-2">
-                  <p className="text-xs text-gray-600 sm:text-sm">
-                    Attendance: <span className="text-green-600">{child.attendance}</span>
-                  </p>
-                  <p className="text-xs text-gray-600 sm:text-sm">
-                    Homework: <span className="text-blue-600">{child.homeworkDue} Due</span>
-                  </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        {/* Quick Stats Cards */}
+        <div className="flex overflow-x-auto space-x-3 pb-2 scrollbar-hide px-4">
+          <div className="flex-shrink-0 w-[280px] bg-green-50 rounded-lg p-4 border border-green-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-medium text-green-800">Monthly Attendance</h3>
+                <p className="text-lg font-bold text-green-600 mt-1">{attendanceStats.percentage}%</p>
+                <p className="text-xs text-green-700 mt-1">{attendanceStats.present} days present</p>
+              </div>
+              <Calendar className="h-8 w-8 text-green-600" />
+            </div>
+          </div>
+          <div className="flex-shrink-0 w-[280px] bg-amber-50 rounded-lg p-4 border border-amber-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-medium text-amber-800">Pending Homework</h3>
+                <p className="text-lg font-bold text-amber-600 mt-1">{todaysHomework.length} Assignments</p>
+                <button className="text-xs text-amber-600 hover:underline mt-2">View Details</button>
+              </div>
+              <BookOpen className="h-8 w-8 text-amber-600" />
+            </div>
+          </div>
+          <div className="flex-shrink-0 w-[280px] bg-blue-50 rounded-lg p-4 border border-blue-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-medium text-blue-800">Upcoming Exams</h3>
+                <p className="text-lg font-bold text-blue-600 mt-1">{upcomingAssessments.length} Scheduled</p>
+                <button className="text-xs text-blue-600 hover:underline mt-2">View Schedule</button>
+              </div>
+              <AlertCircle className="h-8 w-8 text-blue-600" />
+            </div>
+          </div>
+        </div>
+
+        {/* Today's Schedule */}
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 mx-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-bold text-gray-900">Today's Schedule</h2>
+            <div className="flex items-center space-x-2">
+              <button 
+                onClick={() => navigate(`/view_timetable/${currentStudent.id}`)}
+                className="text-xs text-blue-600 hover:underline"
+              >
+                View Full Schedule
+              </button>
+              <Clock className="h-5 w-5 text-gray-400" />
+            </div>
+          </div>
+          <div className="space-y-4">
+            {dailySchedule.map((item) => (
+              <div key={item.id} className="flex items-start space-x-3" onClick={() => navigate(`/view_timetable/${currentStudent.id}`)}>
+                <div className="w-20 flex-shrink-0">
+                  <p className="text-xs text-gray-600">{item.timeSlot}</p>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900">{item.subject}</p>
+                  <p className="text-xs text-gray-600">{item.teacher}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Alerts Section */}
-        <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-200 sm:rounded-xl sm:p-4">
-          <h2 className="text-base font-bold text-gray-900 mb-2 sm:text-lg sm:mb-4">Important Alerts & Reminders</h2>
-          <div className="space-y-2 sm:space-y-3">
+        {/* Today's Homework */}
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 mx-4">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Today's Homework</h2>
+          <div className="space-y-3">
+            {todaysHomework.map((homework) => (
+              <div key={homework.id} className="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">{homework.subject}</p>
+                  <p className="text-xs text-gray-600 mt-1">{homework.title}</p>
+                  <p className="text-xs text-gray-500 mt-1">Due: {homework.dueDate}</p>
+                </div>
+                <span className={`px-2 py-1 rounded-full text-xs ${
+                  homework.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                  homework.status === 'completed' ? 'bg-green-100 text-green-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {homework.status.charAt(0).toUpperCase() + homework.status.slice(1)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Upcoming Assessments */}
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 mx-4">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Upcoming Assessments</h2>
+          <div className="space-y-3">
+            {upcomingAssessments.map((assessment) => (
+              <div key={assessment.id} className="flex items-start justify-between p-3 bg-blue-50 rounded-lg">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">{assessment.subject}</p>
+                  <p className="text-xs text-gray-600 mt-1">{assessment.title}</p>
+                  <p className="text-xs text-gray-500 mt-1">Date: {assessment.date}</p>
+                </div>
+                <div className="text-right">
+                  <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                    {assessment.type.toUpperCase()}
+                  </span>
+                  <p className="text-xs text-gray-600 mt-1">{assessment.weightage}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Important Alerts */}
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 mx-4">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Important Alerts</h2>
+          <div className="space-y-3">
             {alerts.map((alert) => (
               <div 
                 key={alert.id} 
-                className={`flex items-start justify-between p-2 rounded-lg sm:p-3 ${
+                className={`flex items-start justify-between p-3 rounded-lg ${
                   alert.type === 'absence' ? 'bg-red-50' :
                   alert.type === 'notice' ? 'bg-green-50' :
-                  'bg-blue-50'
+                  alert.type === 'homework' ? 'bg-amber-50' :
+                  alert.type === 'exam' ? 'bg-blue-50' :
+                  'bg-purple-50'
                 }`}
               >
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-gray-900 truncate sm:text-sm">{alert.message}</p>
-                  <p className="text-[10px] text-gray-600 sm:text-xs">{alert.date}</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{alert.message}</p>
+                  <p className="text-xs text-gray-600">{alert.date}</p>
                 </div>
                 {alert.isDismissible && (
-                  <button className="ml-1 flex-shrink-0 p-1 hover:bg-gray-100 rounded-full sm:ml-2">
-                    <X className="h-3 w-3 text-gray-500 sm:h-4 sm:w-4" />
+                  <button className="ml-2 flex-shrink-0 p-1 hover:bg-gray-100 rounded-full">
+                    <X className="h-4 w-4 text-gray-500" />
                   </button>
                 )}
               </div>
@@ -153,30 +430,28 @@ const ParentDashboard: React.FC = () => {
         </div>
 
         {/* Upcoming Events */}
-        <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-200 sm:rounded-xl sm:p-4">
-          <div className="flex justify-between items-center mb-2 sm:mb-4">
-            <h2 className="text-base font-bold text-gray-900 sm:text-lg">Upcoming School Events</h2>
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 mx-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-base font-bold text-gray-900">Upcoming Events</h2>
             <button 
               onClick={() => navigate('/calendar')}
-              className="text-xs text-blue-600 hover:underline flex-shrink-0"
+              className="text-xs text-blue-600 hover:underline"
             >
               View All
             </button>
           </div>
-          <div className="space-y-2 sm:space-y-3">
-            {upcomingEvents.slice(0, 3).map((event) => (
-              <div key={event.id} className="flex items-start space-x-2 sm:space-x-3">
-                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0 sm:w-2 sm:h-2 sm:mt-2" />
+          <div className="space-y-3">
+            {upcomingEvents.map((event) => (
+              <div key={event.id} className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-gray-900 truncate sm:text-sm">{event.title}</p>
-                  <p className="text-[10px] text-gray-600 sm:text-xs">{event.date}</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{event.title}</p>
+                  <p className="text-xs text-gray-600">{event.date}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-
-        <RecentActivityFeed />
       </div>
     </Layout>
   );

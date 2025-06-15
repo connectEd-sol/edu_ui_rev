@@ -29,7 +29,7 @@ export interface AttendanceRecord {
   id: string;
   studentId: string;
   date: string;
-  status: 'present' | 'absent' | 'late' | 'excused';
+  status: 'present' | 'absent' | 'late' | 'excused' | 'holiday';
   markedBy: string;
   markedAt: string;
   remarks?: string;

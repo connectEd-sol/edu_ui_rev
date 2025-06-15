@@ -21,7 +21,10 @@ import SubmitFeedback from "./pages/feedback/SubmitFeedback";
 import ViewFeedback from "./pages/feedback/ViewFeedback";
 import SchoolCalendar from "./pages/calendar/SchoolCalendar";
 import BadgePage from "./pages/badges/BadgePage";
-import ParentRoute from "./pages/parentRoute";
+import ParentRoute from "./pages/ParentRoute";
+import ViewAttendance from "./pages/attendance/ViewAttendance";
+import StudentTimetable from "./pages/student/StudentTimetable";
+
 
 // App Routes component
 const AppRoutes: React.FC = () => {
@@ -41,6 +44,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/notices/new" element={<CreateNotice />} />
         <Route path="/feedback/submit" element={<SubmitFeedback />} />
         <Route path="/calendar" element={<SchoolCalendar />} />
+        <Route path="/view_timetable/:childId" element={<StudentTimetable />} />
 
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
@@ -60,6 +64,7 @@ const AppRoutes: React.FC = () => {
 
         {/* Common routes */}
         <Route path="attendance" element={<AttendanceManager />} />
+        <Route path="/view_attendance/:childId" element={<ViewAttendance />} />
         <Route path="/badges" element={<BadgePage />} />
 
       </Route>

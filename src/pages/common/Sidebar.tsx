@@ -119,7 +119,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
       case 'parent':
         return [
           ...commonItems,
-          { type: 'link', icon: Calendar, label: 'Attendance', path: '/attendance' },
+          { type: 'link', icon: Calendar, label: 'Attendance', path: '/view_attendance/1' },
+          { type: 'link', icon: Calendar, label: 'Class TimeTable', path: '/view_timetable/1' },
+
           { type: 'link', icon: TrendingUp, label: 'Performance', path: '/performance' },
           { type: 'link', icon: MapPin, label: 'Bus Tracking', path: '/bus-tracking' },
           { type: 'link', icon: Settings, label: 'Settings', path: '/settings' },
