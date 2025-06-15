@@ -24,6 +24,10 @@ import BadgePage from "./pages/badges/BadgePage";
 import ParentRoute from "./pages/ParentRoute";
 import ViewAttendance from "./pages/attendance/ViewAttendance";
 import StudentTimetable from "./pages/student/StudentTimetable";
+import HallOfFame from "./pages/hall-of-fame/HallOfFame";
+import Resources from "./pages/student/Resources";
+import EmergencyContacts from "./pages/EmergencyContacts";
+
 
 
 // App Routes component
@@ -37,14 +41,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/dashboard" element={<BaseUrlComponent />} />
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
-        <Route path="/homework/:classId" element={<HomeworkTracker />} />
-        <Route path="/test_marks" element={<ViewTestMarks />} />
-        <Route path="/post_marks" element={<PostTestMarks />} />
-        <Route path="/notices" element={<NoticeBoard />} />
-        <Route path="/notices/new" element={<CreateNotice />} />
-        <Route path="/feedback/submit" element={<SubmitFeedback />} />
-        <Route path="/calendar" element={<SchoolCalendar />} />
-        <Route path="/view_timetable/:childId" element={<StudentTimetable />} />
+  
 
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
@@ -66,7 +63,17 @@ const AppRoutes: React.FC = () => {
         <Route path="attendance" element={<AttendanceManager />} />
         <Route path="/view_attendance/:childId" element={<ViewAttendance />} />
         <Route path="/badges" element={<BadgePage />} />
-
+        <Route path="/hall-of-fame" element={<HallOfFame />} />
+        <Route path="/homework/:classId" element={<HomeworkTracker />} />
+        <Route path="/test_marks" element={<ViewTestMarks />} />
+        <Route path="/post_marks" element={<PostTestMarks />} />
+        <Route path="/notices" element={<NoticeBoard />} />
+        <Route path="/notices/new" element={<CreateNotice />} />
+        <Route path="/feedback/submit" element={<SubmitFeedback />} />
+        <Route path="/calendar" element={<SchoolCalendar />} />
+        <Route path="/view_timetable/:childId" element={<StudentTimetable />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/emergency_contact" element={<EmergencyContacts />} />
       </Route>
 
       {/* Catch all route */}
