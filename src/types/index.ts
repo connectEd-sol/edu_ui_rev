@@ -29,7 +29,7 @@ export interface AttendanceRecord {
   id: string;
   studentId: string;
   date: string;
-  status: 'present' | 'absent' | 'late' | 'excused';
+  status: 'present' | 'absent' | 'late' | 'excused' | 'holiday';
   markedBy: string;
   markedAt: string;
   remarks?: string;
@@ -90,4 +90,22 @@ export interface Notification {
   type: 'info' | 'success' | 'warning' | 'error';
   isRead: boolean;
   createdAt: string;
+}
+
+export interface Homework {
+  id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  subject: string;
+  classId: string;
+  attachments?: string[];
+  createdAt: string;
+  submissions?: {
+    studentId: string;
+    submittedAt: string;
+    status: 'submitted' | 'graded' | 'late';
+    grade?: number;
+    feedback?: string;
+  }[];
 }

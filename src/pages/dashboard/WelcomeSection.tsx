@@ -11,9 +11,9 @@ const WelcomeSection: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl text-white p-8">
-      <h1 className="text-3xl font-bold mb-2">{getWelcomeMessage()}</h1>
-      <p className="text-blue-100 text-lg">
+    <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-4">
+      <h1 className="text-2xl font-bold mb-1">{getWelcomeMessage()}</h1>
+      <p className="text-blue-100 text-base">
         Welcome to your EduManage dashboard. Here's what's happening today.
       </p>
     </div>

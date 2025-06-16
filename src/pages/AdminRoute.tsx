@@ -1,8 +1,10 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const PrivateRoute = (): React.JSX.Element => {
+const AdminRoute = (): React.JSX.Element => {
   const { user, isLoading } = useAuth();
+  const location = useLocation();
+
   if (isLoading) {
     return (
       <div
@@ -19,9 +21,17 @@ const PrivateRoute = (): React.JSX.Element => {
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
       </div>
     );
-  } else {
-    return user?.id ? <Outlet /> : <Navigate to="/login" replace />;
   }
+
+  if (user?.role === "admin") {
+    // If we're at the admin root path (no outlet match), redirect to dashboard
+    if (location.pathname === "/") {
+      return <Navigate to="/dashboard" replace />;
+    }
+    return <Outlet />;
+  }
+
+  return <Navigate to="/login" replace />;
 };
 
-export default PrivateRoute;
+export default AdminRoute;

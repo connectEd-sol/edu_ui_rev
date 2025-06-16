@@ -50,19 +50,19 @@ const RecentActivities: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Recent Activities</h2>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="space-y-4">
+      <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Recent Activities</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div className="grid grid-cols-2 gap-3 sm:space-y-4">
           {recentActivities.map((activity, index) => {
             const Icon = activity.icon;
             return (
-              <div key={index} className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                  <Icon className="h-4 w-4 text-gray-600" />
+              <div key={index} className="flex items-start space-x-2 sm:space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                  <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-900 mb-1">{activity.text}</p>
-                  <p className="text-xs text-gray-500">{activity.time}</p>
+                  <p className="text-[10px] sm:text-sm text-gray-900 mb-0.5 sm:mb-1 line-clamp-2">{activity.text}</p>
+                  <p className="text-[8px] sm:text-xs text-gray-500">{activity.time}</p>
                 </div>
               </div>
             );
