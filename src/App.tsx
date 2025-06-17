@@ -38,6 +38,8 @@ import StudentTimetable from "./pages/student/StudentTimetable";
 import HallOfFame from "./pages/hall-of-fame/HallOfFame";
 import Resources from "./pages/student/Resources";
 import EmergencyContacts from "./pages/EmergencyContacts";
+import AllTeachersList from "./pages/Admin/AllTeacherslist";
+import TeacherProfile from "./pages/Admin/TeacherProfile";
 
 
 
@@ -67,6 +69,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />
           <Route path="/feedback" element={<ViewFeedback />} />
+          <Route path="/teachers" element={<AllTeachersList />} />
+          <Route path="/teachprofile" element={<TeacherProfile />} />
         </Route>
 
         {/* Teacher routes */}
