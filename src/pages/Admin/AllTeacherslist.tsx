@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, UserPlus, ChevronDown, MoreVertical, Eye, Edit, Trash2, Mail, BookOpen, Calendar, Phone } from 'lucide-react';
+import Layout from '../common/Layout';
+import { useNavigate } from 'react-router-dom';
 
 // --- MOCK DATA: A realistic list of teachers with Indian names ---
 const mockTeachers = [
@@ -106,7 +108,7 @@ const ActionMenu = ({ teacherId, onAction }) => {
 export default function AllTeachersList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-  
+  const navigate = useNavigate();
   const handleAction = (action, teacherId) => {
     alert(`Action: ${action} for Teacher ID: ${teacherId}`);
   };
@@ -125,6 +127,7 @@ export default function AllTeachersList() {
   }, [searchTerm, statusFilter]);
 
   return (
+    <Layout>
     <div className="bg-gray-50/50 min-h-screen p-4">
       <div className="max-w-7xl mx-auto">
         {/* Page Header */}
@@ -170,7 +173,7 @@ export default function AllTeachersList() {
         {/* Teachers Card List */}
         <div className="space-y-4">
           {filteredTeachers.map((teacher) => (
-            <div key={teacher.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+            <div key={teacher.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4" onClick={() => navigate(`/teacher-profile/${teacher.id}`)}>
               {/* Card Header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
@@ -215,5 +218,7 @@ export default function AllTeachersList() {
         </div>
       </div>
     </div>
+    </Layout>
+
   );
 }

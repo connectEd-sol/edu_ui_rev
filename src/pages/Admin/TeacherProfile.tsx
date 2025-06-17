@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Award, BookOpen, Calendar, TrendingUp, UserCheck, Briefcase, Clock, ArrowLeft } from 'lucide-react';
+import Layout from '../common/Layout';
 
 // --- MOCK DATA for a single teacher profile ---
 const teacherData = {
@@ -136,6 +137,7 @@ export default function TeacherProfile() {
   };
 
   return (
+    <Layout>
     <div className="bg-gray-50/50 min-h-screen p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Profile Header */}
@@ -189,5 +191,6 @@ export default function TeacherProfile() {
         </div>
       </div>
     </div>
+    </Layout>
   );
 }
