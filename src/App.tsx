@@ -40,7 +40,7 @@ import Resources from "./pages/student/Resources";
 import EmergencyContacts from "./pages/EmergencyContacts";
 import AllTeachersList from "./pages/Admin/AllTeacherslist";
 import TeacherProfile from "./pages/Admin/TeacherProfile";
-import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
+// import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
 
 
 
@@ -61,7 +61,7 @@ const AppRoutes: React.FC = () => {
         ========================================================================
       */}
       <Route path="/badges" element={<BadgesUIPage />} />
-      <Route path="/badgess" element={<InteractiveBadgeDisplay />} />
+      {/* <Route path="/badgess" element={<InteractiveBadgeDisplay />} /> */}
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
 
@@ -70,8 +70,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />
           <Route path="/feedback" element={<ViewFeedback />} />
-          <Route path="/teachers" element={<AllTeachersList />} />
-          <Route path="/teachprofile" element={<TeacherProfile />} />
+          <Route path="/users/teachers" element={<AllTeachersList />} />
+          <Route path="/teacher-profile/:teacherId" element={<TeacherProfile />} />
         </Route>
 
         {/* Teacher routes */}
@@ -88,8 +88,6 @@ const AppRoutes: React.FC = () => {
           4. DELETE THIS OLD BADGES ROUTE from the 'Common routes' section below
           ========================================================================
         */}
-        {/* <Route path="/badges" element={<BadgePage />} /> */}
-
 
         {/* Common routes */}
         <Route path="attendance" element={<AttendanceManager />} />

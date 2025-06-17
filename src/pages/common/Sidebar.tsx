@@ -79,8 +79,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
             subItems: [
               { type: 'link', icon: GraduationCap, label: 'Students', path: '/users/students' },
               { type: 'link', icon: Users, label: 'Teachers', path: '/users/teachers' },
-              { type: 'link', icon: Users, label: 'Parents', path: '/users/parents' },
-              { type: 'link', icon: Users, label: 'Admins', path: '/users/admins' },
             ]
           },
           { type: 'link', icon: ClipboardList, label: 'Attendance Management', path: '/attendance' },
