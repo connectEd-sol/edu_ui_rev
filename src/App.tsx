@@ -40,6 +40,7 @@ import Resources from "./pages/student/Resources";
 import EmergencyContacts from "./pages/EmergencyContacts";
 import AllTeachersList from "./pages/Admin/AllTeacherslist";
 import TeacherProfile from "./pages/Admin/TeacherProfile";
+import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
 
 
 
@@ -60,7 +61,7 @@ const AppRoutes: React.FC = () => {
         ========================================================================
       */}
       <Route path="/badges" element={<BadgesUIPage />} />
-
+      <Route path="/badgess" element={<InteractiveBadgeDisplay />} />
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
 
