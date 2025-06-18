@@ -43,6 +43,7 @@ import TeacherProfile from "./pages/Admin/TeacherProfile";
 import StudentProfile from "./pages/student/StudentProfile";
 import LeaveApplicationForm from "./pages/parent/LeaveApplicationForm";
 import BusTrackingPage from "./pages/parent/BusTrackingPage";
+import SplashScreen from "./pages/auth/SplashScreen";
 // import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
 
 
@@ -53,6 +54,7 @@ const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public routes */}
       <Route element={<PublicRoute />}>
+      <Route path="/splash" element={<SplashScreen />} />
         <Route path="/login" element={<LoginForm />} />
       </Route>
       <Route path="/dashboard" element={<BaseUrlComponent />} />
