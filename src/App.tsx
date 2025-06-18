@@ -40,6 +40,9 @@ import Resources from "./pages/student/Resources";
 import EmergencyContacts from "./pages/EmergencyContacts";
 import AllTeachersList from "./pages/Admin/AllTeacherslist";
 import TeacherProfile from "./pages/Admin/TeacherProfile";
+import StudentProfile from "./pages/student/StudentProfile";
+import LeaveApplicationForm from "./pages/parent/LeaveApplicationForm";
+import BusTrackingPage from "./pages/parent/BusTrackingPage";
 // import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
 
 
@@ -72,6 +75,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/feedback" element={<ViewFeedback />} />
           <Route path="/users/teachers" element={<AllTeachersList />} />
           <Route path="/teacher-profile/:teacherId" element={<TeacherProfile />} />
+          <Route path="/students-profile" element={<StudentProfile/>} />
         </Route>
 
         {/* Teacher routes */}
@@ -82,6 +86,8 @@ const AppRoutes: React.FC = () => {
         {/* Parent routes */}
         <Route path="/" element={<ParentRoute />}>
           <Route path="/parent_dashboard" element={<ParentDashboard />} />
+          <Route path="/leave" element={<LeaveApplicationForm />} />
+          <Route path="bus-tracking" element={<BusTrackingPage />} />
         </Route>
 
         {/* ========================================================================
