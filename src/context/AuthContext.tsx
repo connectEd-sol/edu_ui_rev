@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types';
-import { mockUsers } from '../constants/Constants';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { User } from "../types";
+import { mockUsers } from "../constants/Constants";
 
 interface AuthContextType {
   user: User | null;
@@ -14,7 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -23,41 +29,48 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-
-
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored user session
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setIsLoading(false);
+    const fetchUser = async () => {
+      // Check for stored user session
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setIsLoading(false);
+    };
+    fetchUser();
   }, []);
 
-  const login = async (email: string, password: string, role: string): Promise<boolean> => {
+  const login = async (
+    email: string,
+    password: string,
+    role: string
+  ): Promise<boolean> => {
     setIsLoading(true);
-    
     // Mock authentication logic
-    const foundUser = mockUsers.find(u => u.email === email && u.role === role);
-    
+    const foundUser = mockUsers.find(
+      (u) => u.email === email && u.role === role
+    );
+
     if (foundUser && password === foundUser.password) {
       setUser(foundUser);
-      localStorage.setItem('user', JSON.stringify(foundUser));
+      localStorage.setItem("user", JSON.stringify(foundUser));
       setIsLoading(false);
       return true;
     }
-    
+
     setIsLoading(false);
     return false;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
   };
 
   return (
