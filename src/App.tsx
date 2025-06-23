@@ -113,7 +113,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/view_timetable/:childId" element={<StudentTimetable />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/emergency_contact" element={<EmergencyContacts />} />
-        <Route path="/students-profile" element={<StudentProfile/>} />
+        <Route path="/students-profile/:id" element={<StudentProfile/>} />
 
       </Route>
 

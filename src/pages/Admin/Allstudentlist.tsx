@@ -121,7 +121,7 @@ const AllStudentsList: React.FC = () => {
   };
 
   const goToStudentProfile = ()=>{
-    navigate('/students-profile')
+    navigate('/students-profile/:id')
   }
 
 
