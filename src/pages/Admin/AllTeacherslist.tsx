@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, UserPlus, ChevronDown, MoreVertical, Eye, Edit, Trash2, Mail, BookOpen, Calendar, Phone } from 'lucide-react';
+import { Search, UserPlus, ChevronDown, MoreVertical, Eye, Edit, Trash2, Mail, BookOpen, Calendar } from 'lucide-react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
 
@@ -88,13 +88,13 @@ const ActionMenu = ({ teacherId, onAction }) => {
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-10 border border-gray-100">
-          <a onClick={() => onAction('View Profile', teacherId)} className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+          <a onClick={() => { onAction('View Profile', teacherId); setIsOpen(false); }} className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
             <Eye size={16} /> View Profile
           </a>
-          <a onClick={() => onAction('Edit', teacherId)} className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+          <a onClick={() => { onAction('Edit', teacherId); setIsOpen(false); }} className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
             <Edit size={16} /> Edit Details
           </a>
-          <a onClick={() => onAction('Deactivate', teacherId)} className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer">
+          <a onClick={() => { onAction('Deactivate', teacherId); setIsOpen(false); }} className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer">
             <Trash2 size={16} /> Deactivate
           </a>
         </div>
@@ -103,12 +103,12 @@ const ActionMenu = ({ teacherId, onAction }) => {
   );
 };
 
-
 // --- Main Component: AllTeachersList ---
 export default function AllTeachersList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const navigate = useNavigate();
+
   const handleAction = (action, teacherId) => {
     alert(`Action: ${action} for Teacher ID: ${teacherId}`);
   };
@@ -128,97 +128,96 @@ export default function AllTeachersList() {
 
   return (
     <Layout>
-    <div className="bg-gray-50/50 min-h-screen p-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Page Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Teacher Management</h1>
-            <p className="mt-1 text-sm text-gray-600">
-              View, search, and manage all teachers.
-            </p>
+      <div className="bg-gray-50/50 min-h-screen p-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Page Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Teacher Management</h1>
+              <p className="mt-1 text-sm text-gray-600">View, search, and manage all teachers.</p>
+            </div>
+            <button className="flex w-full sm:w-auto items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 transition-colors">
+              <UserPlus size={18} />
+              <span>Add New Teacher</span>
+            </button>
           </div>
-          <button className="flex w-full sm:w-auto items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 transition-colors">
-            <UserPlus size={18} />
-            <span>Add New Teacher</span>
-          </button>
-        </div>
 
-        {/* Control Bar: Search and Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-4">
-          <div className="relative flex-grow">
-            <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search by name, subject, or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div className="relative">
-            <select
+          {/* Controls */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-4">
+            <div className="relative flex-grow">
+              <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by name, subject, or email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div className="relative">
+              <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="appearance-none w-full sm:w-48 bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="All">All Statuses</option>
-              <option value="Active">Active</option>
-              <option value="On Leave">On Leave</option>
-            </select>
-            <ChevronDown size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+              >
+                <option value="All">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="On Leave">On Leave</option>
+              </select>
+              <ChevronDown size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            </div>
           </div>
-        </div>
 
-        {/* Teachers Card List */}
-        <div className="space-y-4">
-          {filteredTeachers.map((teacher) => (
-            <div key={teacher.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4" onClick={() => navigate(`/teacher-profile/${teacher.id}`)}>
-              {/* Card Header */}
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <img className="h-12 w-12 rounded-full object-cover" src={teacher.avatar} alt={teacher.name} />
-                  <div>
-                    <div className="text-base font-bold text-gray-900">{teacher.name}</div>
+          {/* Teachers List */}
+          <div className="space-y-4">
+            {filteredTeachers.map((teacher) => (
+              <div
+                key={teacher.id}
+                className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => navigate(`/teacher-profile/${teacher.id}`)}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <img className="h-12 w-12 rounded-full object-cover" src={teacher.avatar} alt={teacher.name} />
+                    <div>
+                      <div className="text-base font-bold text-gray-900">{teacher.name}</div>
+                      <div className="text-sm text-gray-500 flex items-center gap-1.5">
+                        <Mail size={14} />
+                        {teacher.email}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <ActionMenu teacherId={teacher.id} onAction={handleAction} />
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-2 text-sm text-gray-700">
+                    <BookOpen size={16} className="text-gray-400" />
+                    <span className="font-semibold">Subject:</span>
+                    <span>{teacher.subject}</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <StatusBadge status={teacher.status} />
                     <div className="text-sm text-gray-500 flex items-center gap-1.5">
-                      <Mail size={14} />
-                      {teacher.email}
+                      <Calendar size={14} />
+                      <span>Joined: {new Date(teacher.joinDate).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </div>
-                <div className="flex-shrink-0">
-                    <ActionMenu teacherId={teacher.id} onAction={handleAction}/>
-                </div>
               </div>
-              
-              {/* Card Body */}
-              <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <BookOpen size={16} className="text-gray-400"/>
-                    <span className="font-semibold">Subject:</span>
-                    <span>{teacher.subject}</span>
-                </div>
-                <div className="flex items-center gap-4">
-                    <StatusBadge status={teacher.status} />
-                    <div className="text-sm text-gray-500 flex items-center gap-1.5">
-                        <Calendar size={14} />
-                        <span>Joined: {new Date(teacher.joinDate).toLocaleDateString()}</span>
-                    </div>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
 
-          {filteredTeachers.length === 0 && (
-            <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
+            {filteredTeachers.length === 0 && (
+              <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
                 <h3 className="text-lg font-medium text-gray-700">No Teachers Found</h3>
                 <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filter criteria.</p>
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </Layout>
-
   );
 }
