@@ -288,10 +288,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose, isMobile = false }) => {
           })}
         </nav>
 
-        <div className="absolute bottom-0 w-full p-2 border-t border-gray-200 bg-white">
+        <div className="absolute bottom-0  p-2 border-t border-gray-200 bg-white">
           <button
             onClick={handleLogout}
-            className={`flex items-center w-full px-3 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors ${
+            className={`flex items-center w-full px-9 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors ${
               isCollapsed && !isMobile ? 'justify-center' : ''
             }`}
           >
