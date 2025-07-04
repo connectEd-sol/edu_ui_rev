@@ -20,13 +20,32 @@ import NoticeBoard from "./pages/notices/NoticeBoard";
 import SubmitFeedback from "./pages/feedback/SubmitFeedback";
 import ViewFeedback from "./pages/feedback/ViewFeedback";
 import SchoolCalendar from "./pages/calendar/SchoolCalendar";
-import BadgePage from "./pages/badges/BadgePage";
+
+// ========================================================================
+// 1. DELETE THE LINE BELOW (since our new page will handle the badge logic)
+// ========================================================================
+// import BadgePage from "./pages/badges/BadgePage";
+
+// ========================================================================
+// 2. ADD THIS NEW IMPORT STATEMENT HERE
+// Make sure the path is correct based on where you saved the file.
+// ========================================================================
+import BadgesUIPage from "./pages/badges/BadgesUIPage";
+
 import ParentRoute from "./pages/ParentRoute";
 import ViewAttendance from "./pages/attendance/ViewAttendance";
 import StudentTimetable from "./pages/student/StudentTimetable";
 import HallOfFame from "./pages/hall-of-fame/HallOfFame";
 import Resources from "./pages/student/Resources";
 import EmergencyContacts from "./pages/EmergencyContacts";
+import TeacherProfile from "./pages/Admin/TeacherProfile";
+import StudentProfile from "./pages/student/StudentProfile";
+import LeaveApplicationForm from "./pages/parent/LeaveApplicationForm";
+import BusTrackingPage from "./pages/parent/BusTrackingPage";
+import AllTeachersList from "./pages/Admin/AllTeacherslist";
+import Allstudentlist from "./pages/Admin/Allstudentlist";
+
+// import InteractiveBadgeDisplay from "./pages/badges/InteractiveBadgeDisplay";
 
 
 
@@ -39,14 +58,28 @@ const AppRoutes: React.FC = () => {
         <Route path="/login" element={<LoginForm />} />
       </Route>
       <Route path="/dashboard" element={<BaseUrlComponent />} />
+
+      {/* ========================================================================
+        3. ADD THE NEW BADGES ROUTE HERE
+        Place it right after the public routes and before the private routes.
+        This keeps it separate from any login or layout components.
+        ========================================================================
+      */}
+      <Route path="/badges" element={<BadgesUIPage />} />
+      {/* <Route path="/badgess" element={<InteractiveBadgeDisplay />} /> */}
       {/* Private routes */}
       <Route path="/" element={<PrivateRoute />}>
-  
+
 
         {/* Admin routes */}
         <Route path="/" element={<AdminRoute />}>
           <Route path="/admin_dashboard" element={<Dashboard />} />
           <Route path="/feedback" element={<ViewFeedback />} />
+          <Route path="/teacher-profile/:teacherId" element={<TeacherProfile />} />
+            <Route path="/users/teachers" element={<AllTeachersList />} />
+          
+             <Route path="/users/students" element={<Allstudentlist />} />
+          
         </Route>
 
         {/* Teacher routes */}
@@ -57,12 +90,18 @@ const AppRoutes: React.FC = () => {
         {/* Parent routes */}
         <Route path="/" element={<ParentRoute />}>
           <Route path="/parent_dashboard" element={<ParentDashboard />} />
+          <Route path="/leave" element={<LeaveApplicationForm />} />
+          <Route path="bus-tracking" element={<BusTrackingPage />} />
         </Route>
+
+        {/* ========================================================================
+          4. DELETE THIS OLD BADGES ROUTE from the 'Common routes' section below
+          ========================================================================
+        */}
 
         {/* Common routes */}
         <Route path="attendance" element={<AttendanceManager />} />
         <Route path="/view_attendance/:childId" element={<ViewAttendance />} />
-        <Route path="/badges" element={<BadgePage />} />
         <Route path="/hall-of-fame" element={<HallOfFame />} />
         <Route path="/homework/:classId" element={<HomeworkTracker />} />
         <Route path="/test_marks" element={<ViewTestMarks />} />
@@ -74,6 +113,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/view_timetable/:childId" element={<StudentTimetable />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/emergency_contact" element={<EmergencyContacts />} />
+        <Route path="/students-profile/:id" element={<StudentProfile/>} />
+
       </Route>
 
       {/* Catch all route */}
